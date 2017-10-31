@@ -3,11 +3,6 @@
 import logging, time, subprocess, shlex
 
 
-def main(): 
-	logging.basicConfig(level="INFO")
-
-	
-	logging.info("GPU temperature: %s°C", getGPUTemperature())
 
 
 def getGPUTemperature():
@@ -16,5 +11,12 @@ def getGPUTemperature():
 	temperature = subprocess.Popen(command, stdout=subprocess.PIPE, universal_newlines=True)
 
 	return temperature.stdout.read().strip()
+
+
+def main(): 
+	logging.basicConfig(level="INFO")
+
+	logging.info("GPU temperature: %s°C", getGPUTemperature())
+
 
 main()

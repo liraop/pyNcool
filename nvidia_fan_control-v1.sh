@@ -8,9 +8,9 @@
 # Script meant to start on user login
 #
 # Requirements:
-# Nvidia GPU and 'coolbits 4' option enabled on xorg.conf
+# Nvidia GPU, X and 'coolbits 4' option enabled on xorg.conf
 #
-# Written by liraop - lirapdo@gmail.com
+# Written by liraop - pedrolira@live.com
 #
 #####
 
@@ -25,14 +25,14 @@ checkTime=10
 while true; do
    ## get GPU core temperature
    gputemp=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)
-   ## enable fan control
-   nsReturn=$(nvidia-settings -a [gpu:0]/GPUFanControlState=1)
+
    ## get current fan speed
    startSpeed=$(nvidia-smi --query-gpu=fan.speed --format=csv,noheader,nounits)
 
    printf %b "GPU Temperature: ${gputemp}c\n"
 
    ## check temperature, set target speed, set fan speed
+
    case $gputemp in
       [0-4][0-9])
       targetSpeed=40
@@ -55,8 +55,6 @@ while true; do
       ;;
    esac
 
-   ## where the magic happens to fix fan speed status
-   nsReturn=$(nvidia-settings -a [gpu:0]/GPUFanControlState=1)
    ## gets fan final speed
    finalSpeed=$(nvidia-smi --query-gpu=fan.speed --format=csv,noheader,nounits)
 
