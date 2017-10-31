@@ -22,6 +22,11 @@ class GPU():
 
 	def updateInfo(self, temperature, fanSpeed):
 		""" Updates GPU's information
+
+		Current GPU fan speed is stored at `self.fanSpeed`
+
+		Current GPU temperature is stored at `self.temperature`
+
 		"""
 		self.fanSpeed = fanSpeed
 		self.temperature = temperature
