@@ -3,8 +3,6 @@
 import logging, time, subprocess, shlex
 
 
-
-
 def getGPUTemperature():
 	textCommand = "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits"
 	command = shlex.split(textCommand)
@@ -13,7 +11,7 @@ def getGPUTemperature():
 	return temperature.stdout.read().strip()
 
 
-def main(): 
+def main():
 	logging.basicConfig(level="INFO")
 
 	logging.info("GPU temperature: %s°C", getGPUTemperature())
