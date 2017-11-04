@@ -29,3 +29,11 @@ class GPU():
 		"""
 		self.fanSpeed = fanSpeed
 		self.temperature = temperature
+
+	def __str__(self):
+		""" String representation of the class
+		"""
+
+		summary = "Slot: " + self.slot + "Model: " + self.model
+
+		return summary
