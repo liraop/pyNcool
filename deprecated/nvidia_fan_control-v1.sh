@@ -20,8 +20,9 @@ set -o pipefail
 set -o nounset
 
 ## time to rerun temperature check
-checkTime=10
+checkTime=3
 
+out=$(nvidia-settings -a [gpu:0]/GPUFanControlState=1)
 while true; do
    ## get GPU core temperature
    gputemp=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)
@@ -37,7 +38,7 @@ while true; do
       [0-4][0-9])
       targetSpeed=40
       nsReturn=$(nvidia-settings -a [fan:0]/GPUTargetFanSpeed=${targetSpeed})
-      ;;
+      ;;x9spit
       5[0-9])
       targetSpeed=50
       nsReturn=$(nvidia-settings -a [fan:0]/GPUTargetFanSpeed=${targetSpeed})
@@ -59,6 +60,8 @@ while true; do
    finalSpeed=$(nvidia-smi --query-gpu=fan.speed --format=csv,noheader,nounits)
 
    msg="Fan speed was ${startSpeed}%\nFan speed is ${finalSpeed}%\n"
+
    printf %b "${msg}"
    sleep ${checkTime}
 done
+out=$(nvidia-settings -a [gpu:0]/GPUFanControlState=0)
