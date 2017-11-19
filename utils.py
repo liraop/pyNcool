@@ -17,3 +17,14 @@ def commandParser(osCommand):
     result = subprocess.Popen(command, stdout=subprocess.PIPE, universal_newlines=True)
 
     return result.stdout.read().split();
+
+def getGPUcount():
+    """
+    Get local machine total attached formatGPUlist
+
+    Returns:
+        Total attached GPU count
+
+    """
+
+    return int(commandParser("nvidia-smi --query-gpu=count --format=csv,noheader").pop())
