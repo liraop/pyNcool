@@ -1,25 +1,31 @@
-class GPU():
+"""
+GPU class module
+"""
+
+class GPU(object):
 
     """
-	A graphic processing unit
-
-	"""
+    A graphic processing unit (GPU) class
+    """
 
     def __init__(self, slot, model):
 
         """
-		Defines the GPU slot and card model.
+        Creates a GPU object
 
-		GPU slot is the logical slot of the GPU in the system. If it's a single
-		unit, slot is 0. GPU slot is stored in `self.slot`.
-
-		Card model is stored in `self.model`
-
-		"""
+        Attributes:
+            slot (int): GPU's slot.
+            model (str): GPU's name/model.
+        """
 
         self.slot = slot
         self.model = model
 
+        self.fanspeed = None
+        """ int: GPU's fanspeed """
+
+        self.temperature = None
+        """ int: GPU's temperature in Celcius """
 
     def update_info(self, temperature, fanspeed):
         """ Updates GPU's information
