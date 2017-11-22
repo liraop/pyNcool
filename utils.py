@@ -1,3 +1,7 @@
+"""
+Module with general utilities such as parsers
+"""
+
 import shlex
 import subprocess
 
@@ -37,7 +41,7 @@ def get_gpu_info(slot):
     Get data from GPU in `slot`
 
     Returns:
-        {slot,name}
+        {slot,name} dict
 
     """
     gpu_data = {"slot":slot}
