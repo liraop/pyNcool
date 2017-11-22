@@ -30,3 +30,19 @@ def get_gpu_count():
     """
 
     return int(command_parser("nvidia-smi --query-gpu=count --format=csv,noheader"))
+
+
+def get_gpu_info(slot):
+    """
+    Get data from GPU in `slot`
+
+    Returns:
+        {slot,name}
+
+    """
+    gpu_data = {"slot":slot}
+
+    command = "nvidia-smi -i %d --query-gpu=name --format=csv,noheader" % slot
+    gpu_data["name"] = command_parser(command).strip()
+
+    return gpu_data
