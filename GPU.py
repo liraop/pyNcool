@@ -27,6 +27,16 @@ class GPU(object):
         self.temperature = None
         """ int: GPU's temperature in Celcius """
 
+    @property
+    def fanspeed(self):
+        """GPU fan speed in percentage"""
+
+        return self.fanspeed
+
+    @fanspeed.setter
+    def fanspeed(self, speed):
+        self.fanspeed = speed
+
     def __str__(self):
         """ String representation of the class
 		"""
