@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 
-import GPU, logging, time, subprocess, utils
+import GPU
+import utils
 
 def main():
-	print(utils.commandParser("nvidia-smi -L"))
+    """
+    Main function x)
+    """
+
+    gpu_counter = utils.get_gpu_count()
+    print("%d GPU found on system" % gpu_counter)
 
 main()
