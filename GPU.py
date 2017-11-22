@@ -6,6 +6,11 @@ class GPU(object):
 
     """
     A graphic processing unit (GPU) class
+
+    Attributes:
+        slot (int): GPU's slot.
+        model (str): GPU's model/name.
+
     """
 
     def __init__(self, slot, model):
@@ -13,19 +18,13 @@ class GPU(object):
         """
         Creates a GPU object
 
-        Attributes:
-            slot (int): GPU's slot.
+        Args:
+            slot (int): GPU's slot on system.
             model (str): GPU's name/model.
         """
 
         self.slot = slot
         self.model = model
-
-        self.fanspeed = None
-        """ int: GPU's fanspeed """
-
-        self.temperature = None
-        """ int: GPU's temperature in Celcius """
 
     @property
     def fanspeed(self):
@@ -40,6 +39,7 @@ class GPU(object):
     @property
     def temperature(self):
         """GPU's core temperature in Celcius"""
+
         return self.temperature
 
     @temperature.setter
@@ -47,9 +47,8 @@ class GPU(object):
         self.temperatue = temperature
 
     def __str__(self):
-        """ String representation of the class
-		"""
+        """ String representation of the class"""
 
-        summary = "Slot: " + self.slot + "Model: " + self.model
+        summary = "Slot: %d Model: %s " % (self.slot, self.model)
 
         return summary
