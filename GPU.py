@@ -27,17 +27,6 @@ class GPU(object):
         self.temperature = None
         """ int: GPU's temperature in Celcius """
 
-    def update_info(self, temperature, fanspeed):
-        """ Updates GPU's information
-
-		Current GPU fan speed is stored at `self.fanSpeed`
-
-		Current GPU temperature is stored at `self.temperature`
-
-		"""
-        self.fanspeed = fanspeed
-        self.temperature = temperature
-
     def __str__(self):
         """ String representation of the class
 		"""
