@@ -43,7 +43,7 @@ class GPU(object):
         return self.__temperature
 
     @temperature.setter
-    def temperatue(self, temperature):
+    def temperature(self, temperature):
         self.__temperatue = temperature
 
     def __str__(self):
