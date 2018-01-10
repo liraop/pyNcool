@@ -50,6 +50,8 @@ class GPU(object):
     def __str__(self):
         """ String representation of the class"""
 
-        summary = "Slot: %d Model: %s " % (self.slot, self.model)
+        summary = "Slot: %d Model: %s Temprature: %s Fan Speed: %s " \
+        % (self.slot, self.model, self.temperature, self.fanspeed)
+
 
         return summary

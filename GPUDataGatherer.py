@@ -41,6 +41,15 @@ class GPUDataFetcher(ABC):
         """
         pass
 
+    @abstractmethod
+    def get_gpu_fanspeed(self, slot):
+        """
+        Get fan speed from GPU in `slot`
+
+        Returns:
+            Fan speed in percentage
+        """
+
 class SMIFetcher(GPUDataFetcher):
     """
     Fetching data using NVIDIA SMI commands
@@ -66,3 +75,10 @@ class SMIFetcher(GPUDataFetcher):
         temperature = Utils.command_parser(command).strip()
 
         return temperature
+
+    def get_gpu_fanspeed(self, slot):
+
+        command = "nvidia-smi -i %d --query-gpu=fan.speed --format=csv,noheader,nounits" % slot
+        fanspeed = Utils.command_parser(command).strip()
+
+        return fanspeed
