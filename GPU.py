@@ -26,6 +26,7 @@ class GPU(object):
         self.slot = slot
         self.model = model
 
+
     @property
     def fanspeed(self):
         """GPU fan speed in percentage"""
@@ -44,7 +45,7 @@ class GPU(object):
 
     @temperature.setter
     def temperature(self, temperature):
-        self.__temperatue = temperature
+        self.__temperature = temperature
 
     def __str__(self):
         """ String representation of the class"""
