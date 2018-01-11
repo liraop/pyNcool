@@ -19,7 +19,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-## time to rerun temperature check
+## seconds to rerun temperature check
 checkTime=10
 
 while true; do
