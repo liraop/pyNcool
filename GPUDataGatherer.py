@@ -26,7 +26,7 @@ class GPUDataFetcher(ABC):
         Get identification from GPU in `slot`
 
         Returns:
-            {slot,name} dict
+            (slot,name) tuple
 
         """
         pass
@@ -62,10 +62,8 @@ class SMIFetcher(GPUDataFetcher):
 
     def get_gpu_info(self, slot):
 
-        gpu_data = {"slot":slot}
-
         command = "nvidia-smi -i %d --query-gpu=name --format=csv,noheader" % slot
-        gpu_data["name"] = Utils.command_parser(command).strip()
+        gpu_data = (slot, Utils.command_parser(command).strip())
 
         return gpu_data
 
