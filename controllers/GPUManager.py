@@ -17,17 +17,36 @@ def add_gpu(gpu):
     """
     GPU_SET.append(gpu)
 
-def update(gpu_data_fetcher):
+def initialize(gdf):
     """
-    Updates all GPUs temperature and fanspeed using `GPUDataFetcher`
-    Preliminary method. > I better give it a thought later <
+    Initialize all GPUs on system using `gdf`
+    > it is wise give it a thought or two later
+
+    Args:
+        gdf (GPUDataFetcher): Instance of data fetcher
+
+    """
+    for i in range(gdf.get_gpu_count()):
+        gpu_slot, gpu_model = gdf.get_gpu_info(i)
+        add_gpu(GPU(gpu_slot, gpu_model))
+
+    full_update(gdf)
+
+def full_update(gdf):
+    """
+    Updates all GPUs temperature and fanspeed using `gdf`
+    > Probably a temporary method.
+
+    Args:
+        gdf (GPUDataFetcher): Instance of the fetcher to gather data
 
     """
     for gpu in GPU_SET:
-        gpu.temperature = gpu_data_fetcher.get_gpu_temperature(gpu.slot)
-        gpu.fanspeed = gpu_data_fetcher.get_gpu_fanspeed(gpu.slot)
+        gpu.temperature = gdf.get_gpu_temperature(gpu.slot)
+        gpu.fanspeed = gdf.get_gpu_fanspeed(gpu.slot)
+
 
 #temporary for testing purproses
 def status():
     for gpu in GPU_SET:
-        print(gpu)
+        return gpu
