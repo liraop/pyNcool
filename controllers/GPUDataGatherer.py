@@ -50,6 +50,14 @@ class GPUDataFetcher(ABC):
             Fan speed in percentage
         """
 
+    @abstractmethod
+    def get_gpu_pm(self, slot):
+        """
+        Get persistence mode status from GPU in `slot`
+
+        Returns:
+            Boolean
+        """
 class SMIFetcher(GPUDataFetcher):
     """
     Fetching data using NVIDIA SMI commands
@@ -80,3 +88,10 @@ class SMIFetcher(GPUDataFetcher):
         fanspeed = Utils.command_parser(command).strip()
 
         return fanspeed
+
+    def get_gpu_pm(self, slot):
+
+        command = "nvidia-smi -i %d --query-gpu=persistence_mode --format=csv,nohead,nounits" % slot
+        pm = Utils.command_parser(command)
+
+        return pm
