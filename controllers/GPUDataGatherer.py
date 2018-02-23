@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-import Utils
+from utils.parsers import command_parser
 
 class GPUDataFetcher(ABC):
     """
@@ -65,33 +65,33 @@ class SMIFetcher(GPUDataFetcher):
 
     def get_gpu_count(self):
 
-        return int(Utils.command_parser("nvidia-smi --query-gpu=count --format=csv,noheader"))
+        return int(command_parser("nvidia-smi --query-gpu=count --format=csv,noheader"))
 
 
     def get_gpu_info(self, slot):
 
         command = "nvidia-smi -i %d --query-gpu=name --format=csv,noheader" % slot
-        gpu_data = (slot, Utils.command_parser(command).strip())
+        gpu_data = (slot, command_parser(command).strip())
 
         return gpu_data
 
     def get_gpu_temperature(self, slot):
 
         command = "nvidia-smi -i %d --query-gpu=temperature.gpu --format=csv,noheader" % slot
-        temperature = Utils.command_parser(command).strip()
+        temperature = command_parser(command).strip()
 
         return temperature
 
     def get_gpu_fanspeed(self, slot):
 
         command = "nvidia-smi -i %d --query-gpu=fan.speed --format=csv,noheader,nounits" % slot
-        fanspeed = Utils.command_parser(command).strip()
+        fanspeed = command_parser(command).strip()
 
         return fanspeed
 
     def get_gpu_pm(self, slot):
 
         command = "nvidia-smi -i %d --query-gpu=persistence_mode --format=csv,nohead,nounits" % slot
-        pm = Utils.command_parser(command)
+        pm = command_parser(command)
 
         return pm
