@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 
-import GPU
-import utils
+from controllers import GPUDataGatherer
+from controllers import GPUManager as MANAGER
 
 def main():
     """
     Main function x)
     """
+    GATHERER = GPUDataGatherer.SMIFetcher()
+    MANAGER.initialize(GATHERER)
+    MANAGER.status()
 
-    gpu_counter = utils.get_gpu_count()
-    print("%d GPU found on system" % gpu_counter)
 
-main()
+if __name__ == '__main__':
+    main()
