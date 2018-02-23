@@ -1,9 +1,10 @@
-from models.gpu import GPU
-
 """
 A manager lying between data, GPUs and commands.
 
 """
+
+from models.gpu import GPU
+from utils.parsers import command_parser
 
 GPU_SET = []
 
@@ -42,11 +43,30 @@ def full_update(gdf):
 
     """
     for gpu in GPU_SET:
+        enable_fancontrol(gpu, True)
         gpu.temperature = gdf.get_gpu_temperature(gpu.slot)
         gpu.fanspeed = gdf.get_gpu_fanspeed(gpu.slot)
+        enable_fancontrol(gpu, False)
+
+def enable_fancontrol(gpu, enable):
+    """
+    Set `gpu` fan control as `status`.
+
+    Args:
+        gpu (GPU): Instance of GPU
+        enable (boolean): True for enable, False for disable
+    """
+
+    if enable:
+        state = 1
+    else:
+        state = 0
+
+    command = "nvidia-settings -a [gpu:%s]/GPUFanControlState=%i" % (gpu.slot, state)
+    command_parser(command)
 
 
 #temporary for testing purproses
 def status():
     for gpu in GPU_SET:
-        return gpu
+        print(gpu)
