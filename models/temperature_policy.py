@@ -1,6 +1,7 @@
 """
 Temperature and policies related module
 """
+import intervals as In
 
 class Profile(object):
     """
