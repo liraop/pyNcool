@@ -1,12 +1,13 @@
-"""
-A manager lying between data, GPUs and commands.
-
-"""
+"""A manager lying between data, GPUs and commands."""
 
 from models.gpu import GPU
 from utils.parsers import command_parser
+from models.temperature_policy import Profile
 
 GPU_SET = []
+PROFILES = []
+ACTIVE_PROFILE = None
+
 
 def add_gpu(gpu):
     """
@@ -17,6 +18,7 @@ def add_gpu(gpu):
 
     """
     GPU_SET.append(gpu)
+
 
 def initialize(gdf):
     """
@@ -33,6 +35,7 @@ def initialize(gdf):
 
     full_update(gdf)
 
+
 def full_update(gdf):
     """
     Updates all GPUs temperature and fanspeed using `gdf`
@@ -48,6 +51,7 @@ def full_update(gdf):
         gpu.fanspeed = gdf.get_gpu_fanspeed(gpu.slot)
         enable_fancontrol(gpu, False)
 
+
 def enable_fancontrol(gpu, enable):
     """
     Set `gpu` fan control as `status`.
@@ -57,14 +61,29 @@ def enable_fancontrol(gpu, enable):
         enable (boolean): True for enable, False for disable
     """
 
-    if enable:
-        state = 1
-    else:
-        state = 0
-
-    command = "nvidia-settings -a [gpu:%s]/GPUFanControlState=%i" % (gpu.slot, state)
+    command = "nvidia-settings -a [gpu:%s]/GPUFanControlState=%i" % (gpu.slot, enable)
     command_parser(command)
 
+
+def new_temperature_profile(name):
+    """
+    Creates a new temperature profile.
+
+    Args:
+        name (string): Profile name
+    """
+
+    PROFILES.append(Profile(name))
+
+
+def get_temperature_profiles():
+    """
+    Return profiles names
+
+    """
+
+    for profile in PROFILES:
+        print(profile.name)
 
 #temporary for testing purproses
 def status():
